@@ -1,0 +1,171 @@
+{
+    "code": 200,
+    "msg": null,
+    "result": {
+        "productId": 50282,
+        "productCode": "C49274",
+        "productModel": "MCP3201-BI/SN",
+        "parentCatalogId": 601,
+        "parentCatalogName": "ADC/DAC/Data Conversion",
+        "catalogId": 614,
+        "catalogName": "Analog To Digital Converters (ADCs)",
+        "brandId": 169,
+        "brandNameEn": "Microchip Tech",
+        "encapStandard": "SOP-8",
+        "split": 1,
+        "productUnit": "Piece",
+        "minPacketUnit": "Tube",
+        "minBuyNumber": 1,
+        "maxBuyNumber": -1,
+        "minPacketNumber": 100,
+        "isEnvironment": true,
+        "allHotLevel": null,
+        "isHot": false,
+        "isPreSale": false,
+        "isReel": false,
+        "reelPrice": null,
+        "stockNumber": 41723,
+        "shipImmediately": 14456,
+        "ship3Days": 27267,
+        "stockSz": 14456,
+        "stockJs": 27267,
+        "productPriceList": [
+            {
+                "ladder": 1,
+                "productPrice": "2.0030",
+                "discountRate": "1",
+                "currencyPrice": 2.003,
+                "usdPrice": 2.003,
+                "currencySymbol": "US$",
+                "cnyProductPrice": "12.59"
+            },
+            {
+                "ladder": 10,
+                "productPrice": "1.7230",
+                "discountRate": "1",
+                "currencyPrice": 1.723,
+                "usdPrice": 1.723,
+                "currencySymbol": "US$",
+                "cnyProductPrice": "10.83"
+            },
+            {
+                "ladder": 30,
+                "productPrice": "1.5480",
+                "discountRate": "1",
+                "currencyPrice": 1.548,
+                "usdPrice": 1.548,
+                "currencySymbol": "US$",
+                "cnyProductPrice": "9.73"
+            },
+            {
+                "ladder": 100,
+                "productPrice": "1.3682",
+                "discountRate": "1",
+                "currencyPrice": 1.3682,
+                "usdPrice": 1.3682,
+                "currencySymbol": "US$",
+                "cnyProductPrice": "8.6"
+            },
+            {
+                "ladder": 500,
+                "productPrice": "1.2871",
+                "discountRate": "1",
+                "currencyPrice": 1.2871,
+                "usdPrice": 1.2871,
+                "currencySymbol": "US$",
+                "cnyProductPrice": "8.09"
+            },
+            {
+                "ladder": 1000,
+                "productPrice": "1.2521",
+                "discountRate": "1",
+                "currencyPrice": 1.2521,
+                "usdPrice": 1.2521,
+                "currencySymbol": "US$",
+                "cnyProductPrice": "7.87"
+            }
+        ],
+        "productImages": [
+            "https: //assets.lcsc.com/images/lcsc/900x900/20230408_Microchip-Tech-MCP3201-BI-SN_C49274_front.jpg",
+            "https://assets.lcsc.com/images/lcsc/900x900/20230408_Microchip-Tech-MCP3201-BI-SN_C49274_back.jpg",
+            "https://assets.lcsc.com/images/lcsc/900x900/20230408_Microchip-Tech-MCP3201-BI-SN_C49274_blank.jpg"
+        ],
+        "pdfUrl": "https://datasheet.lcsc.com/lcsc/1806071013_Microchip-Tech-MCP3201-BI-SN_C49274.pdf",
+        "productDescEn": null,
+        "productIntroEn": "2.7V~5.5V 12 100kHz SPI SOP-8  Analog To Digital Converters (ADCs) ROHS",
+        "productArrange": "Tube-packed",
+        "productWeight": 0.000176,
+        "foreignWeight": 0.0,
+        "weight": 0.176,
+        "isForeignOnsale": true,
+        "isAutoOffsale": false,
+        "isHasBattery": false,
+        "title": "Microchip Tech MCP3201-BI/SN",
+        "brandCategory": "international",
+        "isFavorite": false,
+        "paramVOList": [
+            {
+                "paramCode": "param_14552_s",
+                "paramName": "电源电压",
+                "paramNameEn": "Supply Voltage",
+                "paramValue": "2.7V~5.5V",
+                "paramValueEn": "2.7V~5.5V",
+                "paramValueEnForSearch": null,
+                "isMain": true,
+                "sortNumber": 1
+            },
+            {
+                "paramCode": "param_14548_n",
+                "paramName": "通道数",
+                "paramNameEn": "number of channels",
+                "paramValue": "1",
+                "paramValueEn": "1",
+                "paramValueEnForSearch": 1.0,
+                "isMain": false,
+                "sortNumber": 1
+            },
+            {
+                "paramCode": "param_14553_s",
+                "paramName": "工作温度",
+                "paramNameEn": "Operating Temperature",
+                "paramValue": "-40℃~+85℃",
+                "paramValueEn": "-40℃~+85℃",
+                "paramValueEnForSearch": null,
+                "isMain": false,
+                "sortNumber": 1
+            },
+            {
+                "paramCode": "param_14551_n",
+                "paramName": "分辨率",
+                "paramNameEn": "resolution",
+                "paramValue": "12",
+                "paramValueEn": "12",
+                "paramValueEnForSearch": 12.0,
+                "isMain": true,
+                "sortNumber": 1
+            },
+            {
+                "paramCode": "param_14550_n",
+                "paramName": "采样率",
+                "paramNameEn": "sampling frequency",
+                "paramValue": "100kHz",
+                "paramValueEn": "100kHz",
+                "paramValueEnForSearch": 100000.0,
+                "isMain": true,
+                "sortNumber": 1
+            },
+            {
+                "paramCode": "param_14546",
+                "paramName": "接口",
+                "paramNameEn": "Interface",
+                "paramValue": "SPI",
+                "paramValueEn": "SPI",
+                "paramValueEnForSearch": -1.0,
+                "isMain": true,
+                "sortNumber": 1
+            }
+        ],
+        "isAddNotice": null,
+        "subscribeQuantity": null
+    }
+}
