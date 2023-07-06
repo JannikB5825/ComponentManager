@@ -8,10 +8,16 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 FILENAME = "comps.json"
+data = {}
 
-jsonFile = open(FILENAME, encoding="utf-8")
-data = json.load(jsonFile)
-jsonFile.close()
+try:
+    jsonFile = open(FILENAME, encoding="utf-8")
+    data = json.load(jsonFile)
+    jsonFile.close()
+except (FileNotFoundError, json.decoder.JSONDecodeError):
+    f = open(FILENAME, "w", encoding="utf-8")
+    f.write("{}")
+    f.close()
 
 
 class Component(BaseModel):
@@ -19,9 +25,10 @@ class Component(BaseModel):
     Component
     """
 
-    cNumber: str
+    cNumber: str = "Na"
     name: str = "Na"
     catagory: str = "Na"
+    catagoryID: int = 0
     price: float = 0.00
     inventory: int = 0
     image: str = "Na"
@@ -38,6 +45,7 @@ class Component(BaseModel):
             self.cNumber: {
                 "name": self.name,
                 "catagory": self.catagory,
+                "catagoryID": self.catagoryID,
                 "price": self.price,
                 "inventory": self.inventory,
                 "image": self.image,
@@ -67,8 +75,12 @@ async def get_component_info(comp: Component):
         timeout=5,
     )
     response_json = json.loads(respone.text)
+    if response_json["result"] is None:
+        comp.name = "Fail"
+        return comp
     comp.name = response_json["result"]["productModel"]
     comp.catagory = response_json["result"]["catalogName"]
+    comp.catagoryID = response_json["result"]["catalogId"]
     comp.price = response_json["result"]["productPriceList"][0]["productPrice"]
     comp.image = response_json["result"]["productImages"][0]
     param_list = response_json["result"]["paramVOList"]
@@ -120,6 +132,48 @@ async def modify_inventory(comp: Component):
     return JSONResponse(status_code=200, content=data[comp.cNumber])
 
 
+async def get_catagory_comps(comp: Component):
+    """
+    The function `get_catagory_comps` retrieves components from a specific category using an API
+    endpoint and returns them as a dictionary.
+    
+    :param comp: The parameter `comp` is of type `Component`. It represents a specific component for
+    which we want to retrieve the category components
+    :type comp: Component
+    :return: a dictionary containing components that belong to the same category as the input
+    component.
+    """
+    respone = requests.get(
+        "https://wmsc.lcsc.com/wmsc/product/catalog/menu/onelevel?catalogId="
+        + str(comp.catagoryID),
+        timeout=5,
+    )
+    response_json = json.loads(respone.text)
+    if response_json["result"] is None:
+        return JSONResponse(status_code=404, content={"message": "Catagory not found"})
+    return_dict = {}
+    for component in data:
+        if data[component]["catagoryID"] == comp.catagoryID:
+            return_dict[component] = data[component]["name"]
+    return return_dict
+
+
+
+async def get_all_catagorys():
+    """
+    The function `get_all_catagorys` returns a dictionary with the count of each category ID in the
+    `data` variable.
+    :return: a dictionary that contains the count of each category ID in the "data" variable.
+    """
+    return_dict = {}
+    for comp in data:
+        if data[comp]["catagory"] not in return_dict:
+            return_dict[data[comp]["catagory"]] = 1
+        else:
+            return_dict[data[comp]["catagory"]] += 1
+    return return_dict
+
+
 app = FastAPI()
 
 
@@ -130,8 +184,10 @@ async def all_comps():
 
 @app.post("/addComp")
 async def add_comp(comp: Component):
-    temp = await get_component_info(comp)
-    return await temp.add_to_file()
+    query_comp = await get_component_info(comp)
+    if query_comp.name == "Fail":
+        return JSONResponse(status_code=404, content={"message": "Item not found"})
+    return await query_comp.add_to_file()
 
 
 @app.post("/deleteComp")
@@ -142,3 +198,13 @@ async def delete_comp(comp: Component):
 @app.post("/modifyInv")
 async def modify_inv(comp: Component):
     return await modify_inventory(comp)
+
+
+@app.post("/getCompsCatagory")
+async def get_comps_catagory(comp: Component):
+    return await get_catagory_comps(comp)
+
+
+@app.get("/getCatagorys")
+async def get_Catagorys():
+    return await get_all_catagorys()
