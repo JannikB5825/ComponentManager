@@ -82,10 +82,14 @@ async def get_component_info(comp: Component):
     comp.catagory = response_json["result"]["catalogName"]
     comp.catagoryID = response_json["result"]["catalogId"]
     comp.price = response_json["result"]["productPriceList"][0]["productPrice"]
-    comp.image = response_json["result"]["productImages"][0]
+    try:
+        comp.image = response_json["result"]["productImages"][0]
+    except IndexError:
+        comp.image = "https://play-lh.googleusercontent.com/IDwt3anDVjD5IVPkQWXn8BT6Au3MfNZP7Z9tObx7Cotu3jc4OAxXoO57K64ciL9eDeU"
     param_list = response_json["result"]["paramVOList"]
-    for param in param_list:
-        comp.parameters.append([param["paramNameEn"], param["paramValueEn"]])
+    if param_list is not None:
+        for param in param_list:
+            comp.parameters.append([param["paramNameEn"], param["paramValueEn"]])
     return comp
 
 

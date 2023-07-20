@@ -7,16 +7,29 @@ const port = 3001;
 
 async function sendRequest(methode, data, apiRequest) {
   try {
-    const response = await fetch("http://127.0.0.1:8000/" + apiRequest, {
-      method: methode,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const json = await response.text();
-    console.log(json)
-    return json;
+    if (methode === "GET") {
+      const response = await fetch("http://127.0.0.1:8000/" + apiRequest, {
+        method: methode,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.text();
+      console.log(json)
+      return json;
+    }
+    else {
+      const response = await fetch("http://127.0.0.1:8000/" + apiRequest, {
+        method: methode,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const json = await response.text();
+      console.log(json)
+      return json;
+    }
   } catch (error) {
     console.log(error.stack);
   }
@@ -45,7 +58,7 @@ async function getData(req, res) {
 
     } else {
       try {
-        data = {};
+        let data = {};
         const response = await sendRequest("GET", data, apiRequest);
         res.writeHead(200, {
           "Content-Type": "application/json",
