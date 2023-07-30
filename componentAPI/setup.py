@@ -17,6 +17,7 @@ setup(
     long_description=read('README'),
     install_requires=[
         "fastapi",
-        "uvicorn"
+        "uvicorn",
+        "requests"
     ]
 )
