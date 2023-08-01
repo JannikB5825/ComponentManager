@@ -106,3 +106,51 @@ tr:hover {
 .table-container .parameters-cell.show-tooltip {
     display: contents;
 }
+
+#back-button{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+#response{
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    justify-items: center;
+    row-gap: 30px;
+    column-gap: 30px;
+}
+
+#preview-img{
+    grid-row: 1/4;
+    grid-column: 1;
+}
+
+#comp-name{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#comp-catagory{
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#comp-price{
+    grid-column: 2;
+    grid-row: 3;
+}
+
+#comp-parameters{
+    grid-row: 1/4;
+}
+
+.preview-cell{
+    border-radius: 10px;
+    border-width: 3px;
+    border-color: white;
+    border-style: solid;
+    width: 100%;
+    height: 100%;
+}

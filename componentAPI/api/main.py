@@ -185,6 +185,10 @@ app = FastAPI()
 async def all_comps():
     return data
 
+@app.post("/getComp")
+async def get_comp(comp: Component):
+    return await get_component_info(comp)
+
 
 @app.post("/addComp")
 async def add_comp(comp: Component):

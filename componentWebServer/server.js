@@ -84,6 +84,24 @@ async function getData(req, res) {
       res.write(data);
       res.end();
     });
+  }
+  else if (req.url == "/addComp") {
+    fs.readFile("addComp/index.html", function (err, data) {
+      res.writeHead(200, {
+        "Content-Type": "text/html",
+      });
+      res.write(data);
+      res.end();
+    });
+  }
+  else if (req.url == "/add-comp-script.js") {
+    fs.readFile("addComp/script.js", function (err, data) {
+      res.writeHead(200, {
+        "Content-Type": "text/html",
+      });
+      res.write(data);
+      res.end();
+    });
   } else {
     fs.readFile("index.html", function (err, data) {
       res.writeHead(200, {
