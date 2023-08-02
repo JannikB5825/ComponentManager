@@ -5,7 +5,7 @@ import * as fs from "fs";
 const host = "localhost";
 const port = 3001;
 
-async function sendRequest(methode, data, apiRequest) {
+async function sendRequest(methode, data, apiRequest){
   try {
     if (methode === "GET") {
       const response = await fetch("http://127.0.0.1:8000/" + apiRequest, {
@@ -14,9 +14,7 @@ async function sendRequest(methode, data, apiRequest) {
           "Content-Type": "application/json",
         },
       });
-      const json = await response.text();
-      console.log(json)
-      return json;
+      return response;
     }
     else {
       const response = await fetch("http://127.0.0.1:8000/" + apiRequest, {
@@ -26,9 +24,7 @@ async function sendRequest(methode, data, apiRequest) {
         },
         body: JSON.stringify(data),
       });
-      const json = await response.text();
-      console.log(json)
-      return json;
+      return response;
     }
   } catch (error) {
     console.log(error.stack);
@@ -49,10 +45,10 @@ async function getData(req, res) {
         data = JSON.parse(data);
 
         const response = await sendRequest("POST", data, apiRequest);
-        res.writeHead(200, {
+        res.writeHead(response.status, {
           "Content-Type": "application/json",
         });
-        res.end(response);
+        res.end(await response.text());
 
       });
 
@@ -60,10 +56,10 @@ async function getData(req, res) {
       try {
         let data = {};
         const response = await sendRequest("GET", data, apiRequest);
-        res.writeHead(200, {
+        res.writeHead(response.status, {
           "Content-Type": "application/json",
         });
-        res.end(response);
+        res.end(await response.text());
       } catch (error) {
         console.log(error.stack);
       }

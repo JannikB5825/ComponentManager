@@ -187,7 +187,11 @@ async def all_comps():
 
 @app.post("/getComp")
 async def get_comp(comp: Component):
-    return await get_component_info(comp)
+    tempComp = await get_component_info(comp)
+    if(tempComp.name == "Fail"):
+        return JSONResponse(status_code=404, content={"message": "Item not found"})
+    else:
+        return tempComp
 
 
 @app.post("/addComp")
