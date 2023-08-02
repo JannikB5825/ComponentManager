@@ -223,3 +223,10 @@ tr:hover {
   #comp-parameter-table-lcsc tr td{
     height: 48px;
   }
+
+  #input-header-container{
+    display: flex;
+    width: 70%;
+  }
+
+  
