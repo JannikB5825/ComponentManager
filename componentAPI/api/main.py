@@ -85,7 +85,7 @@ async def get_component_info(comp: Component):
     try:
         comp.image = response_json["result"]["productImages"][0]
     except IndexError:
-        comp.image = "https://play-lh.googleusercontent.com/IDwt3anDVjD5IVPkQWXn8BT6Au3MfNZP7Z9tObx7Cotu3jc4OAxXoO57K64ciL9eDeU"
+        comp.image = "https://placehold.co/400"
     param_list = response_json["result"]["paramVOList"]
     if param_list is not None:
         for param in param_list:
@@ -183,19 +183,40 @@ app = FastAPI()
 
 @app.get("/allComps")
 async def all_comps():
+    """
+    The function `all_comps` returns the variable `data`.
+    :return: The function `all_comps()` is returning the variable `data`.
+    """
     return data
 
 @app.post("/getComp")
 async def get_comp(comp: Component):
-    tempComp = await get_component_info(comp)
-    if(tempComp.name == "Fail"):
+    """
+    The function `get_comp` retrieves information about a component and returns it, or returns a 404
+    error if the component is not found.
+    
+    :param comp: The parameter `comp` is of type `Component`
+    :type comp: Component
+    :return: a JSONResponse object.
+    """
+    temp_comp = await get_component_info(comp)
+    if temp_comp.name == "Fail":
         return JSONResponse(status_code=404, content={"message": "Item not found"})
-    else:
-        return tempComp
+    return temp_comp
 
 
 @app.post("/addComp")
 async def add_comp(comp: Component):
+    """
+    The function `add_comp` adds a component to a file after checking if it exists and returning an
+    error message if it doesn't.
+    
+    :param comp: The parameter `comp` is of type `Component`
+    :type comp: Component
+    :return: If the query_comp.name is "Fail", then a JSONResponse with a status code of 404 and a
+    content message of "Item not found" is returned. Otherwise, the result of the
+    query_comp.add_to_file() function is returned.
+    """
     query_comp = await get_component_info(comp)
     if query_comp.name == "Fail":
         return JSONResponse(status_code=404, content={"message": "Item not found"})
@@ -204,19 +225,50 @@ async def add_comp(comp: Component):
 
 @app.post("/deleteComp")
 async def delete_comp(comp: Component):
+    """
+    The function `delete_comp` deletes a component asynchronously.
+    
+    :param comp: The parameter `comp` is of type `Component`
+    :type comp: Component
+    :return: the result of the `delete_component` function, which is awaited using the `await`
+    keyword.
+    """
     return await delete_component(comp)
 
 
 @app.post("/modifyInv")
 async def modify_inv(comp: Component):
+    """
+    The `get_comps_catagory` function takes a `Component` object as input and returns the category
+    of components it belongs to by calling the `get_catagory_comps` function asynchronously.
+    
+    :param comp: The `comp` parameter is of type `Component`
+    :type comp: Component
+    :return: The function `get_comps_catagory` is returning the result of the
+    `get_catagory_comps(comp)` function call, which is awaited using the `await` keyword.
+    """
     return await modify_inventory(comp)
 
 
 @app.post("/getCompsCatagory")
 async def get_comps_catagory(comp: Component):
+    """
+    The function `get_comps_catagory` takes a `Component` object as input and returns the category
+    of components it belongs to by calling the `get_catagory_comps` function asynchronously.
+    
+    :param comp: The parameter `comp` is of type `Component`
+    :type comp: Component
+    :return: the result of the `get_catagory_comps(comp)` function call, which is awaited using the
+    `await` keyword.
+    """
     return await get_catagory_comps(comp)
 
 
 @app.get("/getCatagorys")
-async def get_Catagorys():
+async def get_catagorys():
+    """
+    The function `get_catagorys` is an asynchronous function that returns all categories.
+    :return: The function `get_catagorys` is returning the result of the `get_all_catagorys`
+    function.
+    """
     return await get_all_catagorys()
