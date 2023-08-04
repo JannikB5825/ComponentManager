@@ -177,7 +177,7 @@ tr:hover {
     width: 200px;
   }
   
-  .input-container input[type="text"] {
+  .input-container input {
     font-size: 20px;
     width: 100%;
     border: none;
@@ -197,8 +197,8 @@ tr:hover {
     pointer-events: none;
   }
   
-  .input-container input[type="text"]:focus ~ .label,
-  .input-container input[type="text"]:valid ~ .label {
+  .input-container input:focus ~ .label,
+  .input-container input:valid ~ .label {
     top: -20px;
     font-size: 16px;
     color: #a1a1a1;
@@ -215,8 +215,8 @@ tr:hover {
     transition: all 0.3s ease;
   }
   
-  .input-container input[type="text"]:focus ~ .underline,
-  .input-container input[type="text"]:valid ~ .underline {
+  .input-container input:focus ~ .underline,
+  .input-container input:valid ~ .underline {
     transform: scaleX(1);
   }
   
@@ -227,6 +227,29 @@ tr:hover {
   #input-header-container{
     display: flex;
     width: 70%;
+    align-items: center;
   }
 
-  
+.button-2 {
+    margin: 50px 120px;
+    background-color: rgb(255 255 255 / 25%);
+    border-radius: 8px;
+    border-width: 0;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 18px 20px;
+    text-align: center;
+    transition: all 200ms;
+    vertical-align: baseline;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    height: min-content;
+    touch-action: manipulation;
+}

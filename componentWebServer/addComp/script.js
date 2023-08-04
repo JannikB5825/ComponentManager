@@ -42,6 +42,37 @@ const inputHandlerLcsc =  async function getCompInfoLcsc(e){
 
 }
 
+async function addLcscComp(){
+    const url = "/api/addComp";
+    const inputText = document.getElementById("lcsc-input").value;
+    const inventory = parseInt(document.getElementById("lcsc-inventory-input").value, 10);
+    var cnumber;
+    
+    if(!inputText.startsWith("C")){
+        cnumber = "C" + inputText;
+    }
+    else{
+        cnumber = inputText;
+    }
+    
+    const data = {
+        cNumber: cnumber,
+        inventory: inventory,
+    };
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+    if(response.ok){
+        const comp = await response.json();
+        console.log(comp);
+    }
+
+}
 
 const sourceLcsc = document.getElementById('lcsc-input');
 sourceLcsc.addEventListener('input', inputHandlerLcsc);
