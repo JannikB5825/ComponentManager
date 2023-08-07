@@ -42,6 +42,7 @@ void write_inventory(){
 
 void refresh_info(){
   er_oled_clear(oled_buf);
+  cNumber = read_eeprom();
   write_c_number();
   write_inventory();
   er_oled_display(oled_buf);
@@ -51,7 +52,6 @@ void setup() {
   er_oled_begin();
   
   save_to_eeprom(13245678);
-  cNumber = read_eeprom();
   inventory = 1000;
   refresh_info();
 }
