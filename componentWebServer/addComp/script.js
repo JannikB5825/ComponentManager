@@ -22,7 +22,7 @@ const inputHandlerLcsc =  async function getCompInfoLcsc(e){
     if(response.ok){
         const comp = await response.json();
         document.getElementById("comp-name").innerHTML = comp.name;
-        document.getElementById("comp-catagory").innerHTML = comp.catagory;
+        document.getElementById("comp-category").innerHTML = comp.category;
         document.getElementById("comp-price").innerHTML = comp.price;
         document.getElementById("preview-img").src = comp.image;
         const table = document.getElementById("comp-parameter-table-lcsc")

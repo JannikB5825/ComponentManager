@@ -27,11 +27,12 @@ class Component(BaseModel):
 
     cNumber: str = "Na"
     name: str = "Na"
-    catagory: str = "Na"
-    catagoryID: int = 0
+    category: str = "Na"
+    categoryID: int = 0
     price: float = 0.00
     inventory: int = 0
     image: str = "Na"
+    package: str = "Na"
     parameters: list = []
 
     async def add_to_file(self):
@@ -44,11 +45,12 @@ class Component(BaseModel):
         temp_dict = {
             self.cNumber: {
                 "name": self.name,
-                "catagory": self.catagory,
-                "catagoryID": self.catagoryID,
+                "category": self.category,
+                "categoryID": self.categoryID,
                 "price": self.price,
                 "inventory": self.inventory,
                 "image": self.image,
+                "package": self.package,
                 "parameters": self.parameters,
             }
         }
@@ -79,13 +81,14 @@ async def get_component_info(comp: Component):
         comp.name = "Fail"
         return comp
     comp.name = response_json["result"]["productModel"]
-    comp.catagory = response_json["result"]["catalogName"]
-    comp.catagoryID = response_json["result"]["catalogId"]
+    comp.category = response_json["result"]["catalogName"]
+    comp.categoryID = response_json["result"]["catalogId"]
     comp.price = response_json["result"]["productPriceList"][0]["productPrice"]
     try:
         comp.image = response_json["result"]["productImages"][0]
     except IndexError:
         comp.image = "https://placehold.co/400"
+    comp.package = response_json["result"]["encapStandard"]
     param_list = response_json["result"]["paramVOList"]
     if param_list is not None:
         for param in param_list:
@@ -136,9 +139,9 @@ async def modify_inventory(comp: Component):
     return JSONResponse(status_code=200, content=data[comp.cNumber])
 
 
-async def get_catagory_comps(comp: Component):
+async def get_category_comps(comp: Component):
     """
-    The function `get_catagory_comps` retrieves components from a specific category using an API
+    The function `get_category_comps` retrieves components from a specific category using an API
     endpoint and returns them as a dictionary.
     
     :param comp: The parameter `comp` is of type `Component`. It represents a specific component for
@@ -149,32 +152,32 @@ async def get_catagory_comps(comp: Component):
     """
     respone = requests.get(
         "https://wmsc.lcsc.com/wmsc/product/catalog/menu/onelevel?catalogId="
-        + str(comp.catagoryID),
+        + str(comp.categoryID),
         timeout=5,
     )
     response_json = json.loads(respone.text)
     if response_json["result"] is None:
-        return JSONResponse(status_code=404, content={"message": "Catagory not found"})
+        return JSONResponse(status_code=404, content={"message": "category not found"})
     return_dict = {}
     for component in data:
-        if data[component]["catagoryID"] == comp.catagoryID:
+        if data[component]["categoryID"] == comp.categoryID:
             return_dict[component] = data[component]["name"]
     return return_dict
 
 
 
-async def get_all_catagorys():
+async def get_all_categorys():
     """
-    The function `get_all_catagorys` returns a dictionary with the count of each category ID in the
+    The function `get_all_categorys` returns a dictionary with the count of each category ID in the
     `data` variable.
     :return: a dictionary that contains the count of each category ID in the "data" variable.
     """
     return_dict = {}
     for comp in data:
-        if data[comp]["catagory"] not in return_dict:
-            return_dict[data[comp]["catagory"]] = 1
+        if data[comp]["category"] not in return_dict:
+            return_dict[data[comp]["category"]] = 1
         else:
-            return_dict[data[comp]["catagory"]] += 1
+            return_dict[data[comp]["category"]] += 1
     return return_dict
 
 
@@ -239,36 +242,36 @@ async def delete_comp(comp: Component):
 @app.post("/modifyInv")
 async def modify_inv(comp: Component):
     """
-    The `get_comps_catagory` function takes a `Component` object as input and returns the category
-    of components it belongs to by calling the `get_catagory_comps` function asynchronously.
+    The `get_comps_category` function takes a `Component` object as input and returns the category
+    of components it belongs to by calling the `get_category_comps` function asynchronously.
     
     :param comp: The `comp` parameter is of type `Component`
     :type comp: Component
-    :return: The function `get_comps_catagory` is returning the result of the
-    `get_catagory_comps(comp)` function call, which is awaited using the `await` keyword.
+    :return: The function `get_comps_category` is returning the result of the
+    `get_category_comps(comp)` function call, which is awaited using the `await` keyword.
     """
     return await modify_inventory(comp)
 
 
-@app.post("/getCompsCatagory")
-async def get_comps_catagory(comp: Component):
+@app.post("/getCompscategory")
+async def get_comps_category(comp: Component):
     """
-    The function `get_comps_catagory` takes a `Component` object as input and returns the category
-    of components it belongs to by calling the `get_catagory_comps` function asynchronously.
+    The function `get_comps_category` takes a `Component` object as input and returns the category
+    of components it belongs to by calling the `get_category_comps` function asynchronously.
     
     :param comp: The parameter `comp` is of type `Component`
     :type comp: Component
-    :return: the result of the `get_catagory_comps(comp)` function call, which is awaited using the
+    :return: the result of the `get_category_comps(comp)` function call, which is awaited using the
     `await` keyword.
     """
-    return await get_catagory_comps(comp)
+    return await get_category_comps(comp)
 
 
-@app.get("/getCatagorys")
-async def get_catagorys():
+@app.get("/getcategorys")
+async def get_categorys():
     """
-    The function `get_catagorys` is an asynchronous function that returns all categories.
-    :return: The function `get_catagorys` is returning the result of the `get_all_catagorys`
+    The function `get_categorys` is an asynchronous function that returns all categories.
+    :return: The function `get_categorys` is returning the result of the `get_all_categorys`
     function.
     """
-    return await get_all_catagorys()
+    return await get_all_categorys()

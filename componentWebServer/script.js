@@ -93,6 +93,7 @@ async function createTable(apiResponse) {
         "Category",
         "Price",
         "Inventory",
+        "Package",
         "Image",
         "Parameters",
     ];
@@ -122,7 +123,7 @@ async function createTable(apiResponse) {
             row.appendChild(nameCell);
 
             const categoryCell = document.createElement("td");
-            categoryCell.textContent = data.catagory;
+            categoryCell.textContent = data.category;
             row.appendChild(categoryCell);
 
             const priceCell = document.createElement("td");
@@ -132,6 +133,10 @@ async function createTable(apiResponse) {
             const inventoryCell = document.createElement("td");
             inventoryCell.textContent = data.inventory;
             row.appendChild(inventoryCell);
+
+            const packageCell = document.createElement("td");
+            packageCell.textContent = data.package;
+            row.appendChild(packageCell);
 
             const imageCell = document.createElement("td");
             const image = document.createElement("img");
@@ -200,7 +205,7 @@ async function loadComps() {
             const keyCell = row.querySelector("td:first-child");
             const nameCell = row.querySelector("td:nth-child(2)");
             const categoryCell = row.querySelector("td:nth-child(3)");
-            const parametersCell = row.querySelector("td:nth-child(7) div");
+            const parametersCell = row.querySelector("td:nth-child(8) div");
 
             const keyText = keyCell.textContent.toLowerCase();
             const nameText = nameCell.textContent.toLowerCase();
